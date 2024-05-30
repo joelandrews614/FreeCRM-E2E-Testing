@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import Base.Wrapper;
 import Pages.HomePage;
 import Pages.LoginPage;
 import io.cucumber.java.After;
@@ -15,11 +16,12 @@ import io.cucumber.java.Before;
 import io.cucumber.java.en.*;
 import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
 
-public class loginStepDef {
+public class loginStepDef extends Wrapper{
 
 	private WebDriver driver;
 	private HomePage homePage;
 	private LoginPage loginPage;
+	
 	
 	@Before
 	public void setUp() {
