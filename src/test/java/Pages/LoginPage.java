@@ -15,6 +15,8 @@ public class LoginPage {
 	private By loginBtnLocator = By.xpath("//div[@class='ui fluid large blue submit button']");
 	private By emailLocator = By.xpath("//input[@name='email']");
 	private By pwdLocator = By.xpath("//input[@name='password']");
+	private By somethingWentWrongErrorLocator = By.xpath("//div[@class='header']");
+	private By invlaidLoginErrorLocator = By.xpath("//div//p");
 	
 	public void clickLoginBtn() {
 		WebElement loginBtnElement = driver.findElement(loginBtnLocator);
@@ -36,5 +38,23 @@ public class LoginPage {
 		return pwdElement.isDisplayed();
 	}
 	
+	public void enterEmail(String email) {
+		WebElement emailElement = driver.findElement(emailLocator);
+		emailElement.sendKeys(email);
+	}
 	
+	public void enterPassword(String pwd) {
+		WebElement pwdElement = driver.findElement(pwdLocator);
+		pwdElement.sendKeys(pwd);
+	}
+	
+	public String getSomethingWentWrongText() {
+		WebElement somethingWentWrongElement = driver.findElement(somethingWentWrongErrorLocator);
+		return somethingWentWrongElement.getText();
+	}
+	
+	public String getInvalidLoginErrorText() {
+		WebElement invalidLoginErrorElement = driver.findElement(invlaidLoginErrorLocator);
+		return invalidLoginErrorElement.getText();
+	}
 }

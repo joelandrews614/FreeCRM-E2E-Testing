@@ -56,7 +56,6 @@ public class loginStepDef {
 		homePage = new HomePage(driver);
 		
 		homePage.clickLoginBtn();
-//		driver.findElement(By.xpath("//a[@href='https://ui.freecrm.com']")).click();
 	}
 
 	@Then("user can see the login page")
@@ -86,21 +85,21 @@ public class loginStepDef {
 	@Given("user enters email in the email textbox")
 	public void user_enters_email_in_the_email_textbox() throws InterruptedException {
 
-		driver.findElement(By.xpath("//input[@name='email']")).sendKeys("joelandrews614@gmail.com");
+		loginPage.enterEmail("joelandrews614@gmail.com");
 
 	}
 
 	@Given("user enters password in the password textbox")
 	public void user_enters_password_in_the_password_textbox() throws InterruptedException {
 
-		driver.findElement(By.xpath("//input[@name='password']")).sendKeys("Ss9fagU.gmY8TtJ");
+		loginPage.enterPassword("Ss9fagU.gmY8TtJ");
 
 	}
 
 	@When("user clicks on the login button")
 	public void user_clicks_on_the_login_button() throws InterruptedException {
 
-		driver.findElement(By.xpath("//div[@class='ui fluid large blue submit button']")).click();
+		loginPage.clickLoginBtn();
 
 	}
 
@@ -116,18 +115,17 @@ public class loginStepDef {
 	@Then("user should see incorrect email error")
 	public void user_should_see_incorrect_email_error() throws InterruptedException {
 
-		Assert.assertEquals("Something went wrong...",
-				driver.findElement(By.xpath("//div[@class='header']")).getText());
+		Assert.assertEquals("Something went wrong...", loginPage.getSomethingWentWrongText());
 
-		Assert.assertEquals("Invalid login", driver.findElement(By.xpath("//div//p")).getText());
+		Assert.assertEquals("Invalid login", loginPage.getInvalidLoginErrorText());
 
 	}
 
 	@Then("user enters {string} and {string}")
 	public void user_enters_and(String string, String string2) {
 	    
-		driver.findElement(By.xpath("//input[@name='email']")).sendKeys(string);
-		driver.findElement(By.xpath("//input[@name='password']")).sendKeys(string2);
+		loginPage.enterEmail(string);
+		loginPage.enterPassword(string2);
 		
 	}
 
