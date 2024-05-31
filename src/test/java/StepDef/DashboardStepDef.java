@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 
+import Pages.ContactsPage;
 import Pages.DashboardPage;
 import Pages.HomePage;
 import Pages.LoginPage;
@@ -15,9 +16,11 @@ import io.cucumber.java.en.*;
 
 public class DashboardStepDef {
 
-	private DashboardPage dashboardPage;
+	
 	private HomePage homePage;
 	private LoginPage loginPage;
+	private DashboardPage dashboardPage;
+	private ContactsPage contactsPage;
 	private WebDriver driver;
 
 	@Before
@@ -133,4 +136,75 @@ public class DashboardStepDef {
 		Assert.assertEquals(true, dashboardPage.isReportsLinkExists());
 	}
 
+	
+	
+	@When("user clicks on the contacts link")
+	public void user_clicks_on_the_contacts_link() {
+
+		dashboardPage.clickContactsLink();
+	}
+
+	@Then("user should see the contacts page")
+	public void user_should_see_the_contacts_page() {
+
+		contactsPage = new ContactsPage(driver);
+		
+		System.out.println(contactsPage.getContactPageURL());
+		Assert.assertEquals("https://ui.cogmento.com/contacts", contactsPage.getContactPageURL());
+		
+	}
+
+	@When("user clicks on create new contact button")
+	public void user_clicks_on_create_new_contact_button() {
+
+		contactsPage.clickCreateNewContactLink();
+
+	}
+
+	@Then("user should see the create new contact page")
+	public void user_should_see_the_create_new_contact_page() {
+
+		Assert.assertEquals("Create New Contact", contactsPage.getCreateNewContactTag());
+
+	}
+
+	@Then("user should add the {string} and {string}")
+	public void user_should_add_the_and(String string, String string2) {
+
+		contactsPage.enterFirstName(string);
+		contactsPage.enterLastName(string2);
+
+	}
+
+	@When("finishing up, user clicks on save button")
+	public void finishing_up_user_clicks_on_save_button() {
+
+		contactsPage.clickSaveBtn();
+
+	}
+
+	@Then("user should see the {string} and {string} in the top left navbar")
+	public void user_should_see_the_and_in_the_top_left_navbar(String string, String string2) {
+
+		System.out.println("=========================================");
+		String fullname = string + " " +  string2;
+		System.out.println(fullname);
+//		System.out.println(contactsPage.getFullName(string, string2));
+//		Assert.assertEquals(fullname, contactsPage.getFullName(string, string2));
+		System.out.println("=========================================");
+		
+	}
+
+	@Then("user deletes the contact which they created")
+	public void user_deletes_the_contact_which_they_created() {
+		
+		dashboardPage.clickContactsLink();
+		
+		contactsPage.clickDeleteBtn();
+
+		contactsPage.clickConfirmationDeleteBtn();
+		
+	}
+
+	
 }

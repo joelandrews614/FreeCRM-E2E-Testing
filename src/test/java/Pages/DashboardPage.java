@@ -110,4 +110,10 @@ public class DashboardPage {
 		return reportsLinkElement.isDisplayed();
 	}
 	
+	public void clickContactsLink() {
+		WebElement ele = driver.findElement(contactsLinkLocator);
+		ele.click();
+	}
+	
+	
 }
